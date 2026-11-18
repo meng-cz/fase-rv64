@@ -32,20 +32,20 @@ ThreadV2::ThreadV2(
     this->fdtable->emplace(0, fd0);
     
     FileDescriptor * fd1 = new FileDescriptor;
-    fd0->host_fd = 1;
-    fd0->path = string("stdout");
-    fd0->ref_cnt = 100;
-    fd0->usr_seek = 0;
-    fd0->st_size = 0;
+    fd1->host_fd = 1;
+    fd1->path = string("stdout");
+    fd1->ref_cnt = 100;
+    fd1->usr_seek = 0;
+    fd1->st_size = 0;
     this->fdtable->emplace(1, fd1);
     
     FileDescriptor * fd2 = new FileDescriptor;
-    fd0->host_fd = 2;
-    fd0->path = string("stderr");
-    fd0->ref_cnt = 100;
-    fd0->usr_seek = 0;
-    fd0->st_size = 0;
-    this->fdtable->emplace(2, fd0);
+    fd2->host_fd = 2;
+    fd2->path = string("stderr");
+    fd2->ref_cnt = 100;
+    fd2->usr_seek = 0;
+    fd2->st_size = 0;
+    this->fdtable->emplace(2, fd2);
 
     this->sig_actions = std::make_shared<std::unordered_map<int32_t, KernelSigaction>>();
     this->sig_proc_mask = std::make_shared<TgtSigsetT>();
