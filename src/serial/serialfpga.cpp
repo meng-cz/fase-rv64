@@ -472,10 +472,11 @@ void SerialFPGAAdapter::_send_frame(BufT &buf, HTPFrame &frame) {
         _append_int(buf, frame.cpuid, 1);
         break;
     case HTOP::mmu:
-        DEBUGOP("S-SetMMU (0x%lx, %ld)", frame.x2 >> PAGE_ADDR_OFFSET, frame.x1);
+        // htp_push_set_mmu already stores a PageIndexT (PPN), not a byte address.
+        DEBUGOP("S-SetMMU (0x%lx, %ld)", frame.x2, frame.x1);
         _append_int(buf, frame.cpuid, 1);
         _append_int(buf, frame.x1, 2);
-        _append_int(buf, frame.x2 >> PAGE_ADDR_OFFSET, 5);
+        _append_int(buf, frame.x2, 5);
         break;
     case HTOP::redir:
         DEBUGOP("S-Redirect (0x%lx)", frame.x1);
